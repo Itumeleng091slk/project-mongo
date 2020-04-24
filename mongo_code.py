@@ -19,7 +19,6 @@ class Create_Visitor():
     x = my_db.insert_many(mylist)
     print(x.inserted_ids)
    
-
 class list_Vistors():
     x = my_db.find_one()
     print(x)
@@ -27,9 +26,7 @@ class list_Vistors():
 class delete_Visitor():
     my_query = { "visitor_name": "Scott" }
     my_db.delete_one(my_query)
-
-    #print the customers collection after the deletion:
-    for x in my_db.find():
+    for x in my_db.find(): #print the customers collection after the deletion
         print(x)
 
 class delete_all():
@@ -39,11 +36,8 @@ class delete_all():
 class update_Visitor():
     my_query = { "visitor_name": "Scott"}
     new_values = { "$set": { "vistor_name": "Minne" } }
-
     my_db.update_one(my_query, new_values)
-
-# print "Visitors" after the update:
-    for x in my_db.find():
+    for x in my_db.find(): # print "Visitors" after the update
        print(x)
 
 class list_all_details():
