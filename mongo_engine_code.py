@@ -17,37 +17,37 @@ mylist = [
 ]
 
 
-def Create_Visitor():
+def Create_Visitor(*args):
     x = my_db.insert_many(mylist)
     return x.inserted_ids
    
-
-def list_Vistors():
+def list_Vistors(*args):
     x = my_db.find_one()
     return x
 
-def delete_Visitor():
+def delete_Visitor(*args):
    my_query = { "visitor_name": "Scott" }
    my_db.delete_one(my_query)
    for x in my_db.find(): #print the customers collection after the deletion
         return x
 
-def delete_all():
+def delete_all(*args):
    x = my_db.delete_many({})
    return x.deleted_count, " documents deleted."
 
-def update_Visitor():
+def update_Visitor(*args):
     my_query = { "visitor_name": "Scott"}
     new_values = { "$set": { "vistor_name": "Terry" } }
     my_db.update_one(my_query, new_values)
     for x in my_db.find(): # print "Visitors" after the update
         return x
 
-def list_all_details():
+def list_all_details(*args):
     for x in my_db.find():
        return x
 
-# x = print(list_Vistors)
+x = update_Visitor("Terry")
+print(x)
 print(db)
 
 
