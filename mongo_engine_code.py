@@ -16,38 +16,41 @@ mylist = [
   
 ]
 
+class Visitor:
 
-def Create_Visitor(*args):
-    x = my_db.insert_many(mylist)
-    return x.inserted_ids
-   
-def list_Vistors(*args):
-    x = my_db.find_one()
-    return x
+    def __init__(self):
+        pass
 
-def delete_Visitor(*args):
-   my_query = { "visitor_name": "Scott" }
-   my_db.delete_one(my_query)
-   for x in my_db.find(): #print the customers collection after the deletion
-        return x
+    def Create_Visitor(self, *args):
+        visitor = my_db.insert_many(mylist)
+        return visitor.inserted_ids
+    
+    def list_Vistors(self, *args):
+        visitor = my_db.find_one()
+        return visitor
 
-def delete_all(*args):
-   x = my_db.delete_many({})
-   return x.deleted_count, " documents deleted."
+    def delete_Visitor(self, *args):
+        my_query = { "visitor_name": "mylist" }
+        my_db.delete_one(my_query)
+        for visitor in my_db.find(): #print the customers collection after the deletion
+            return visitor
 
-def update_Visitor(*args):
-    my_query = { "visitor_name": "Scott"}
-    new_values = { "$set": { "vistor_name": "Terry" } }
-    my_db.update_one(my_query, new_values)
-    for x in my_db.find(): # print "Visitors" after the update
-        return x
+    def delete_all(self, *args):
+        visitor = my_db.delete_many({})
+        return visitor.deleted_count, " documents deleted."
 
-def list_all_details(*args):
-    for x in my_db.find():
-       return x
+    def update_Visitor(self, *args):
+        my_query = { "visitor_name": "mylist"}
+        new_values = { "$set": { "vistor_name": "mylist" } }
+        my_db.update_one(my_query, new_values)
+        for visitor in my_db.find(): # print "Visitors" after the update
+            return visitor
 
-x = update_Visitor("Terry")
-print(x)
-print(db)
+    def list_all_details(self, *args):
+        for visitor in my_db.find():
+            return visitor
+
+visitor_1 = Visitor()
+print(visitor_1.update_Visitor())
 
 
