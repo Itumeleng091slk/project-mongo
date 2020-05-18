@@ -1,7 +1,7 @@
 import unittest
 from mongo_engine_code import Visitor
 
-visitors = Visitor()
+visitors = Visitor() #Creating an instance
 
 class Test_mongo(unittest.TestCase):
 
