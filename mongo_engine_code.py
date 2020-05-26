@@ -1,5 +1,6 @@
 import datetime
 import pymongo
+from visitors_data import mylist
 from pymongo import MongoClient
 from mongoengine import *
 
@@ -9,48 +10,50 @@ client = MongoClient("mongodb://root:pass@localhost:27017")
 db = client["UmuziProspects"]
 my_db = db["Visitors"]
 
-mylist = [
-  { "visitor_name": "Scott", "visitors_age": 24, "date of visit": "2020-19-4", "time of visit": "9:00 am", "assistance_name": "Kevin", "comments": "He was very helpful and polite"},
-  { "visitor_name": "Carry", "visitors_age": 28, "date of visit": "2020-21-8", "time of visit": "11:00 am", "assistance_name": "Lou", "comments": "He was very impatient"},
-  {"visitor_name": "Viola", "visitors_age": 21, "date of visit": "2020-5-5", "time of visit": "13:00 pm", "assistance_name": "Sam", "comments": "She was kind"},
-  
-]
 
-class Visitor:
-
-    def __init__(self):
-        pass
-
-    def Create_Visitor(self, *args):
-        visitor = my_db.insert_many(mylist)
-        return visitor.inserted_ids
+class Visitor():
     
-    def list_Vistors(self, *args):
-        visitor = my_db.find_one()
-        return visitor
+    def __init__(self, visitor_data):
+        self.visitor_data = visitor_data
 
-    def delete_Visitor(self, *args):
-        my_query = { "visitor_name": "mylist" }
-        my_db.delete_one(my_query)
-        for visitor in my_db.find(): #print the customers collection after the deletion
-            return visitor
+    def create_visitor(self):
+        try:
+            create_visitor = my_db.insert_many(self.visitor_data)
+        except TypeError: 
+            return "visitor not created"
+        return "visitor created" 
+         
+    def delete_visitor(self,person_to_delete):
+        try:
+            delete_visitor = my_db.delete_one(person_to_delete)
+        except AssertionError:
+            return "visitor not deleted"
+        return "visitor deleted"
 
-    def delete_all(self, *args):
-        visitor = my_db.delete_many({})
-        return visitor.deleted_count, " documents deleted."
+    def update_visitor(self, visitor_to_update, new_info):
+        try:
+            update_visitor = my_db.update_one(visitor_to_update, new_info)
+        except TypeError:
+            return "visitor updated"
+        return "visitor not updated"
 
-    def update_Visitor(self, *args):
-        my_query = { "visitor_name": "mylist"}
-        new_values = { "$set": { "vistor_name": "mylist" } }
-        my_db.update_one(my_query, new_values)
-        for visitor in my_db.find(): # print "Visitors" after the update
-            return visitor
+    def list_all_details(self):
+        return my_db.find()
 
-    def list_all_details(self, *args):
-        for visitor in my_db.find():
-            return visitor
 
-visitor_1 = Visitor()
-print(visitor_1.update_Visitor())
+# visitor_2 = Visitor(mylist)
+# print(visitor_2.create_visitor())
+
+# visitor_3 = Visitor(mylist)
+# print(visitor_3.delete_visitor({"visitor_name": "Viola"}))
+
+# visitor_4 = Visitor(mylist)
+# print(visitor_4.delete_all())
+
+# visitor_1 = Visitor(mylist)
+# print(visitor_1.update_Visitor({"visitor_name": "Scott"}, {"$set": {"gender":"male"}}))
+
+# visitor_5 = Visitor(mylist)
+# print(visitor_5.list_all_details())
 
 
