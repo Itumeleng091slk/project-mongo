@@ -3,9 +3,10 @@ import pymongo
 from visitors_data import mylist
 from pymongo import MongoClient
 from mongoengine import *
+from credentials import *
 
-connect('mongoengine_UmuziProspects', host='localhost', port=27017)
-client = MongoClient("mongodb://root:pass@localhost:27017")
+connect('mongoengine_UmuziProspects', host='host', port=port)
+client = MongoClient("mongodb://root:pass@host:port")
 
 db = client["UmuziProspects"]
 my_db = db["Visitors"]
